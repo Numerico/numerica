@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<script src="js/jquery.js" type="text/javascript"></script>
+<script src="js/mozilla-universe.js" type="text/javascript"></script>
+<title>Numérica.cl</title>
+</head>
+<body>
+<div id="mozilla-universe-embed">
+</div>
+<script type="text/javascript">
+	mozillaUniverse({
+		widget: {
+			theme: 'embed',
+			footnote : '<a rel="mozilla-universe">+ Marcar</a>'
+		}
+	});
+</script>
+</body>
+</html>
