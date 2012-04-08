@@ -66,6 +66,9 @@ var servidor = 'http://localhost/numerica';
 			
 			//lets setup a check to see if jQuery is ready for use before loading the widget
 			mozillaUniverse.tryReady(0, options);
+
+			//Upload de archivos
+			//ajaxUpload;
 		}
 		else
 		{
@@ -127,8 +130,8 @@ var servidor = 'http://localhost/numerica';
 				footnote : 'Mozilla <a href="https://developer.mozilla.org/en/HTML/Canvas">canvas</a> JIT <a href="http://thejit.org/">JavaScript InfoVis Toolkit</a>.' //MÁS AMIGABLE
 			},
 			map : {
-				maxWidth : 400, //this is the max width the actual may is allowed to be
-				maxHeight : 400, //this is the max height the actual may is allowed to be
+				maxWidth : 800, //400 this is the max width the actual may is allowed to be
+				maxHeight : 650, //400 this is the max height the actual may is allowed to be
 				defaultNode : 'numerica', //this is the "You are here" option and it highlights the node that is set
 				dataUrl : servidor+'/php/leer.php?jiho='
 			}
@@ -388,7 +391,7 @@ var servidor = 'http://localhost/numerica';
 			 * These options are used to override the default options as set in the
 			 * JIT library.
 			 */
-			defaultConfig:
+			defaultConfig:  
 			{
 				hideLabels:    false,
 				levelDistance: 250,
@@ -414,9 +417,9 @@ var servidor = 'http://localhost/numerica';
 				{
 					// visible-level node styles
 					if (node._depth < 2) {
-						node.data.$color = '#999';
+						node.data.$color = '#FF0000'; /*'#999';*/
 					} else {
-						node.data.$color = '#ddd';
+						node.data.$color = '#A00000'; /* '#ddd';*/
 					}
 				},
 				onAfterPlotNode: function(node)
@@ -448,7 +451,7 @@ var servidor = 'http://localhost/numerica';
 						adj.data.$color = '#FF0000';//<-ROJO GRIS->'#999';
 						adj.data.$lineWidth = 2;
 					} else {
-						adj.data.$color = '#D05B3F';//<-NARANJO GRIS->'#ddd';
+						adj.data.$color = '#A00000 ';//<-ROJOSCURO GRIS->'#ddd';
 						adj.data.$lineWidth = 1;
 					}
 				},
@@ -649,8 +652,7 @@ var servidor = 'http://localhost/numerica';
 				if(sinrostro){
 					/*var smiley = jQuery(".panel-foto-upload");
 					org.mozilla.SiteMap.$panel.append(smiley);*/
-					org.mozilla.SiteMap.$panel.append('<a class="panel-foto">Subir foto</a>');
-					jQuery(".panel-foto").css("color", "white");
+					org.mozilla.SiteMap.$panel.append('<div class="panel-foto"><a>Subir foto</a></div>');
 				}
 				
 				var h = org.mozilla.SiteMap.$panel.height();
@@ -970,7 +972,7 @@ var servidor = 'http://localhost/numerica';
 		uploader = new qq.FileUploader({
 			debug: true,
 			element: elemental,
-			action: '/universo/ajaxUpload/server/php.php',
+			action: 'ajaxUpload/server/php.php',
 			params: {},
 			onSubmit: function(id, filename){
 				//alert("enviado");
@@ -982,7 +984,7 @@ var servidor = 'http://localhost/numerica';
 				//alert("completo");
 				//ajax sobre ajax
 				jQuery.ajax({
-					url: servidor+"/flow.php",
+					url: servidor+"/php/flow.php",
 					type: "POST",
 					data : {
 						flag : "foto",

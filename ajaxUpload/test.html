@@ -1,0 +1,20 @@
+<html>
+<head>
+<link href="client/fileuploader.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="client/fileuploader.js"></script>
+<script>      
+        function createUploader(){            
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('file-uploader'),
+                action: '../client/do-nothing.htm',
+		debug: true
+            });           
+        }        
+        window.onload = createUploader;      
+</script>
+</head>
+<body>
+<div id="file-uploader">
+</div>
+</body>
+</html>

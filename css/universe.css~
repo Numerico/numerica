@@ -161,7 +161,7 @@ canvas{
 	font-size: 17px;
 }
 #universe-graph .level-2 h5 {
-	color: #585858;
+	color: gray;
 	font-family: courier;
 	font-size: 13px;
 }

@@ -97,7 +97,7 @@ function sinrespeto($string){
 
 function cambiarImagen($archivo){
     //TODO: si ya tiene archivo, borrarlo
-    $archivo = "/universo/ajaxUpload/server/uploads/".$archivo;
+    $archivo ="ajaxUpload/server/uploads/".$archivo;
     $query = "UPDATE data SET image = '".$archivo."',
                               icon = '".$archivo."'
               WHERE pk=(SELECT data FROM nodo WHERE id='".$GLOBALS["rootz"]."')"; //por ahora icon=image
