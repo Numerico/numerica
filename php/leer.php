@@ -4,7 +4,7 @@ require_once('FirePHPCore/fb.php');
 */
 require_once('conexion.php');
 
-$recibido = json_decode($GET['jiho']);
+/*$recibido = json_decode($GET['jiho']);*/
 
 //GLOBALES
 $profundidad=800;
@@ -88,6 +88,6 @@ function queryHijos($papi){
 }
 $encodigo = json_encode($encodigo);
 $encodigo = stripslashes($encodigo);
-$encodigo = "mapData(".$encodigo.")";
+$encodigo = "mapData(".$encodigo.")"; //no funciona remoto
 die($encodigo);
 ?>

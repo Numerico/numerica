@@ -9,31 +9,36 @@
 <title>Numérica.cl</title>
 </head>
 <body>
-<div id="mozilla-universe-embed">
+<div id="patapalo">
+	<div class="pirata crux">
+		<a title="Agregar nodo" rel="marcar-nuevo">+</a>
+	</div>
 </div>
 <script type="text/javascript">
+	var patapalo = $("#patapalo").html(); //en el footer para que el script lo lea
 	mozillaUniverse({
 		widget: {
 			theme: 'embed',
-			footnote : 'Powered by Apache 2.'
+			footnote : patapalo
 		}
 	});
 	window.onload = ajaxUpload;
 </script>
 
-<span class="pirata" style="position: absolute; top: 0px; float: left;">
-<p>Numerica.cl</p>
+<span class="pirata parche">
+Numerica.cl
 </span>
 
 <div id="pluma">
-<img src="img/plumapache.png" />
-Powered by Apache 2.
-</div>
-
-<div class="pirata" style="position: absolute; top: 200px; padding: 25px;">
-	<a title="Agregar nodo" rel="marcar-nuevo">+</a>
+	<img src="img/plumapache.png" />
+	<p>Powered by Apache 2.</p>
+	<p>
+	<em>Mozilla Universe</em> 
+	usando <a href="http://thejit.org/" title="JavaScript InfoVis Toolkit" target="_blank">JIT</a> 
+	sobre <a href="https://developer.mozilla.org/en/HTML/Canvas" title="Canvas" target="_blank">HTML 5</a>.
 </div>
 
 <div id="file-uploader" style="display: none;"></div>
+
 </body>
 </html>

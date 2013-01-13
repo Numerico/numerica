@@ -1,4 +1,5 @@
-var servidor = 'http://localhost/numerica';
+var servidor = 'http://localhost/numerica'; //desarrollo
+//var servidor = 'http://www.numerica.cl'; //prod
 
 	//check that there is a console to log messages to
 	if(typeof console == 'undefined')
@@ -131,7 +132,7 @@ var servidor = 'http://localhost/numerica';
 			},
 			map : {
 				maxWidth : 800, //400 this is the max width the actual may is allowed to be
-				maxHeight : 650, //400 this is the max height the actual may is allowed to be
+				maxHeight : 600, //400 this is the max height the actual may is allowed to be
 				defaultNode : 'numerica', //this is the "You are here" option and it highlights the node that is set
 				dataUrl : servidor+'/php/leer.php?jiho='
 			}
@@ -610,14 +611,10 @@ var servidor = 'http://localhost/numerica';
 				var top         = parseInt(nodeElement.style.top);
 				org.mozilla.SiteMap.$panel.stop();
 				org.mozilla.SiteMap.$panel.css('display', 'block');
-
+				org.mozilla.SiteMap.$panel.editando = false; //para que el panel no se vaya mientras editas
 			
 				var tipContent = '';
 				/**ARTEFACTOS*/
-				/*tipContent += "<div style=\"display: none;\" id=\"file-uploader\">"
-					//+"<input type=\"file\" class=\"panel-foto-upload\" value=\"Subirle logo\">"
-					+ "</div>";//cross-browserabilidad?
-					//*/
 				var sinrostro = false;
 				var img = node.data.image;
 				if (typeof img !== 'undefined' && img != "" && img != null) {
@@ -627,13 +624,11 @@ var servidor = 'http://localhost/numerica';
 				else{
 					sinrostro = true;
 				}
-				//<div class=\"titulo\">
 				tipContent += "<h3 class=\"titulo\">";
 				if(node.name != ""){
 					tipContent += node.name;
 				}
 				else{
-					//tipContent += '<input type="text" class="panel-name"/>'; //decidasé
 					tipContent += "editar";
 				}
 				tipContent += "</h3>";
@@ -650,8 +645,6 @@ var servidor = 'http://localhost/numerica';
 				org.mozilla.SiteMap.$panel.html(tipContent);
 				
 				if(sinrostro){
-					/*var smiley = jQuery(".panel-foto-upload");
-					org.mozilla.SiteMap.$panel.append(smiley);*/
 					org.mozilla.SiteMap.$panel.append('<div class="panel-foto"><a>Subir foto</a></div>');
 				}
 				
@@ -673,6 +666,7 @@ var servidor = 'http://localhost/numerica';
 				
 				//descripción
 				jQuery(".panel-desc").dblclick(function(){
+					org.mozilla.SiteMap.$panel.editando = true;
 					var acrobat = jQuery(".panel-desc-area");
 					if(acrobat.length == 0){
 						jQuery(".panel-desc").empty();
@@ -680,6 +674,7 @@ var servidor = 'http://localhost/numerica';
 						//enter -> val() -> update!
 						jQuery(".panel-desc-area").keydown(function(event){
 							if(event.keyCode == 13){
+								org.mozilla.SiteMap.$panel.editando = false;
 								var acid = jQuery(".panel-desc-area").val();
 								//AJAX
 								jQuery.ajax({
@@ -705,10 +700,12 @@ var servidor = 'http://localhost/numerica';
 				
 				//título
 				jQuery(".titulo").dblclick(function(){
+					org.mozilla.SiteMap.$panel.editando = true;
 					jQuery(".titulo").empty();
 					jQuery(".titulo").html('<input type="text" class="panel-name" value="'+node.name+'"/>'); //innerHTML
 					jQuery(".panel-name").keydown(function(event){
 						if(event.keyCode == 13){
+							org.mozilla.SiteMap.$panel.editando = false;
 							var nombre = jQuery(".panel-name").val();
 							//AJAX
 							jQuery.ajax({
@@ -740,13 +737,15 @@ var servidor = 'http://localhost/numerica';
 			 */
 			hideTip: function(node)
 			{
-				org.mozilla.SiteMap.tip.nodeId = null;
-				org.mozilla.SiteMap.$panel.stop();
-				org.mozilla.SiteMap.$panel.animate({
-					'opacity': 0
-				}, org.mozilla.SiteMap.TIP_HIDE_PERIOD, function() {
-					org.mozilla.SiteMap.$panel.css('display', 'none');
-				});
+				if(!org.mozilla.SiteMap.$panel.editando){
+					org.mozilla.SiteMap.tip.nodeId = null;
+					org.mozilla.SiteMap.$panel.stop();
+					org.mozilla.SiteMap.$panel.animate({
+						'opacity': 0
+					}, org.mozilla.SiteMap.TIP_HIDE_PERIOD, function() {
+						org.mozilla.SiteMap.$panel.css('display', 'none');
+					});
+				}
 			},
 			/**
 			 * LLAMADA A AJAX PIDE LA URL
@@ -758,10 +757,17 @@ var servidor = 'http://localhost/numerica';
 					url: org.mozilla.SiteMap.dataUrl,
 					jsonpCallback: 'mapData', //el Objeto devuelto en nuestro PHP
 					dataType: 'jsonp',
-					success: function(data) {
+					/*success: function(data) {
 						org.mozilla.SiteMap.data =
 							org.mozilla.SiteMap.cleanData(data);
 						org.mozilla.SiteMap.$graph.trigger('cm:data:ready');
+					},*/ //no funciona en servidor remoto! http://joyeria.numerica.cl/2012/04/ajax-a-servidores-remotos-y-jsonp/
+					complete: function(jqXHR, textStatus){
+						if(textStatus=="success"){
+							data = jQuery.parseJSON(jqXHR.responseText);
+							org.mozilla.SiteMap.data = org.mozilla.SiteMap.cleanData(data);
+							org.mozilla.SiteMap.$graph.trigger('cm:data:ready');
+						}
 					}
 				});
 			},

@@ -3,8 +3,9 @@ body{
 }
 .pirata{
 	color: wheat;
-	font-size: 88px;
+	font-size: 66px;
 	font-family: fuente-pirata;
+	z-index: 2;
 }
 
 .pirata a{
@@ -15,7 +16,41 @@ body{
 
 #pluma{
 	position:absolute;
-	top: 0px; 
-	float: left; 
-	z-index: -1;
+	bottom: 0px; 
+	right: 0px;
+	z-index: 1;
 }
+
+#pluma img{
+	width: 200px;
+	height: 300px;
+	float: right;
+}
+
+#pluma p{
+	text-align: right;
+	width: 100%;
+	float: right;
+	margin: 5px 10px 0px 0px;
+}
+
+#pluma a{
+	text-decoration: none;
+}
+
+.parche{
+	position: absolute;
+	top: 0px;
+	float: left;
+	margin: 10px 0px 0px 10px;
+}
+
+.crux{
+	position: absolute;
+	bottom: 0px;
+	left: 10px;
+	text-align: center;
+	height: 50px;
+	margin-bottom: 175px;
+}
+

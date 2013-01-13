@@ -1,5 +1,11 @@
 <?php
 require_once('conexion.php');
+
+$cual = $_GET["id"];
+if($cual != null){
+ eliminacion($cual);
+}
+
 function eliminacion($id){
 	$query = "select nodo.pk as nodo, data.pk as data, descript.pk as descript
 		from nodo, data, descript

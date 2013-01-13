@@ -266,7 +266,7 @@ canvas{
 	position: absolute;
 	right: 1em;
 	width: 275px;
-	max-height: 100px;
+	max-height: 150px; /*TODO hacerlo dinámico*/
 	overflow-x: hidden;
 	overflow-y: auto;
 	border: 1px solid rgba(255, 255, 255, 0.15);
